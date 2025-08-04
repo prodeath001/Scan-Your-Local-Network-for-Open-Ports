@@ -1,52 +1,52 @@
-This project provides a comprehensive guide for scanning local networks for open ports, analyzing captured traffic, and identifying vulnerabilities using tools like **Nmap**, **Wireshark**, and **SearchSploit**.
+This project provides a comprehensive guide for scanning local networks for open ports, analyzing captured traffic, and identifying vulnerabilities using tools like Nmap, Wireshark, and SearchSploit.
 
 ---
 
-## 📦 Project Setup (Virtual Environment)
+Project Setup (Virtual Environment)
 
 This task was performed in a virtualized lab using **VirtualBox** with the following machines:
 
-- **Attacker Machine**: *Parrot Security OS*  
+- Attacker Machine: Parrot Security OS
   - Used for scanning (Nmap), capturing packets (tcpdump), and analyzing traffic (Wireshark).
   
-- **Target Machine**: *Metasploitable2*  
+- Target Machine: Metasploitable2  
   - A vulnerable Linux VM simulating real-world insecure services.
 
 These virtual machines were configured on a **host-only** or **NAT** network to safely conduct internal scans and packet analysis without impacting external systems.
 
 ---
 
-## 📖 Table of Contents
+Table of Contents
 
-- [About Nmap](#about-nmap)  
-- [Installation](#installation)
-  - [Windows](#windows)
-  - [Linux](#linux)
-- [Basic Nmap Usage](#basic-nmap-usage)  
-- [Finding Vulnerabilities with SearchSploit](#finding-vulnerabilities-with-searchsploit)  
-- [Wireshark Packet Analysis Guide](#wireshark-packet-analysis-guide)
-
----
-
-## 🔍 About Nmap
-
-**Nmap** is a powerful open-source tool used for network discovery and security auditing.
+- About Nmap
+- Installation
+  - Windows
+  - Linux
+- Basic Nmap Usage
+- Finding Vulnerabilities with SearchSploit 
+- Wireshark Packet Analysis Guide
 
 ---
 
-## 💾 Installation
+ About Nmap
 
-### Windows
+Nmap is a powerful open-source tool used for network discovery and security auditing.
+
+---
+
+ Installation
+
+ Windows
 
 1. Download Nmap from the official site: https://nmap.org/download.html  
 2. Follow the installer steps.
 
-### Linux
+ Linux
 
 bash
 sudo apt update
 sudo apt install nmap
-🚀 Basic Nmap Usage
+Basic Nmap Usage
 Identify your IP range using:
 
 bash
@@ -65,7 +65,7 @@ bash
 Copy
 Edit
 nmap -oN scan_results.txt 192.168.x.0/24
-🛡 Finding Vulnerabilities with SearchSploit
+Finding Vulnerabilities with SearchSploit
 After discovering open ports and services:
 
 Use searchsploit to look up known vulnerabilities:
@@ -76,17 +76,17 @@ Edit
 searchsploit <service/version>
 Alternatively, refer to https://www.exploit-db.com.
 
-🔬 Wireshark Packet Analysis Guide
+Wireshark Packet Analysis Guide
 This guide walks through analyzing .pcap captures using Wireshark to identify services running on open ports.
 
-📌 Prerequisites
+ Prerequisites
 Wireshark installed
 
 A .pcap or .pcapng file (captured using tcpdump or Wireshark)
 
 Basic understanding of TCP/IP protocols
 
-🧭 Steps to Analyze Packet Capture
+Steps to Analyze Packet Capture
 Open Wireshark and Load the Capture File
 
 Launch Wireshark
