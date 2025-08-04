@@ -8,7 +8,7 @@ This project provides a step-by-step guide on installing and using **Nmap** for 
 
 ---
 
-## 📌 Table of Contents
+ Table of Contents
 
 - About Nmap
 - Installation
