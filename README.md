@@ -1,87 +1,131 @@
-# Scan-Your-Local-Network-for-Open-Ports
-Port scanning, TCP SYN scan, IP ranges, network reconnaissance, open ports, network security basics
-
-
- Nmap Installation & Scanning Guide
-
-This project provides a step-by-step guide on installing and using **Nmap** for network scanning and vulnerability assessment using **SearchSploit**.
+This project provides a comprehensive guide for scanning local networks for open ports, analyzing captured traffic, and identifying vulnerabilities using tools like **Nmap**, **Wireshark**, and **SearchSploit**.
 
 ---
 
- Table of Contents
+## 📦 Project Setup (Virtual Environment)
 
-- About Nmap
-- Installation
-  - Windows
-  - Linux
-- Basic Nmap Usage
-- Finding Vulnerabilities with SearchSploit
-- Saving Scan Results
+This task was performed in a virtualized lab using **VirtualBox** with the following machines:
 
+- **Attacker Machine**: *Parrot Security OS*  
+  - Used for scanning (Nmap), capturing packets (tcpdump), and analyzing traffic (Wireshark).
+  
+- **Target Machine**: *Metasploitable2*  
+  - A vulnerable Linux VM simulating real-world insecure services.
 
-
-
-
-
-
-   Wireshark Packet Analysis Guide
-
-This guide walks through the process of analyzing a packet capture using Wireshark to identify common services running on open ports found during a network scan.
+These virtual machines were configured on a **host-only** or **NAT** network to safely conduct internal scans and packet analysis without impacting external systems.
 
 ---
 
- Prerequisites
+## 📖 Table of Contents
 
-- Wireshark installed
-- A `.pcap` or `.pcapng` packet capture file from a scan (e.g., from Nmap or tcpdump)
-- Basic knowledge of TCP/IP protocols
-
----
-
- Steps to Analyze Packet Capture
-
- 1. Open Wireshark and Load the Capture File
-
-- Launch Wireshark
-- Navigate to `File > Open` and select your `.pcap` file
+- [About Nmap](#about-nmap)  
+- [Installation](#installation)
+  - [Windows](#windows)
+  - [Linux](#linux)
+- [Basic Nmap Usage](#basic-nmap-usage)  
+- [Finding Vulnerabilities with SearchSploit](#finding-vulnerabilities-with-searchsploit)  
+- [Wireshark Packet Analysis Guide](#wireshark-packet-analysis-guide)
 
 ---
 
- 2. Identify Target Ports
+## 🔍 About Nmap
 
-Use your prior scan (e.g., Nmap results) to identify open ports. Examples:
-- Port 22 – SSH
-- Port 80 – HTTP
-- Port 443 – HTTPS
-- Port 53 – DNS
-- Port 3306 – MySQL
+**Nmap** is a powerful open-source tool used for network discovery and security auditing.
 
 ---
 
- 3. Filter Packets by Port
+## 💾 Installation
 
-Use Wireshark's display filters to isolate traffic:
+### Windows
+
+1. Download Nmap from the official site: https://nmap.org/download.html  
+2. Follow the installer steps.
+
+### Linux
+
+bash
+sudo apt update
+sudo apt install nmap
+🚀 Basic Nmap Usage
+Identify your IP range using:
+
+bash
+Copy
+Edit
+ip a
+Run a TCP SYN scan:
+
+bash
+Copy
+Edit
+nmap -sS 192.168.x.0/24
+Save results:
+
+bash
+Copy
+Edit
+nmap -oN scan_results.txt 192.168.x.0/24
+🛡 Finding Vulnerabilities with SearchSploit
+After discovering open ports and services:
+
+Use searchsploit to look up known vulnerabilities:
+
+bash
+Copy
+Edit
+searchsploit <service/version>
+Alternatively, refer to https://www.exploit-db.com.
+
+🔬 Wireshark Packet Analysis Guide
+This guide walks through analyzing .pcap captures using Wireshark to identify services running on open ports.
+
+📌 Prerequisites
+Wireshark installed
+
+A .pcap or .pcapng file (captured using tcpdump or Wireshark)
+
+Basic understanding of TCP/IP protocols
+
+🧭 Steps to Analyze Packet Capture
+Open Wireshark and Load the Capture File
+
+Launch Wireshark
+
+File > Open > Select your .pcap file
+
+Identify Target Ports
+Refer to Nmap scan results. Example ports:
+
+22 – SSH
+
+80 – HTTP
+
+443 – HTTPS
+
+53 – DNS
+
+3306 – MySQL
+
+Filter Packets by Port
+Use display filters:
+
 wireshark
+Copy
+Edit
 tcp.port == 22
+Analyze the Protocol Column
+Wireshark auto-detects protocols like HTTP, DNS, TLS.
 
-4. Analyze the Protocol Column
-Look at the "Protocol" column:
+Follow TCP/UDP Streams
 
-Wireshark often auto-detects protocols (e.g., HTTP, DNS, TLS).
+Right-click a packet
 
-This helps confirm the service running on a given port.
+Follow > TCP Stream or UDP Stream
 
-5. Follow TCP/UDP Streams
-To analyze conversations:
+Review conversations for service behavior or banners
 
-Right-click a packet.
-
-Select Follow > TCP Stream or UDP Stream.
-
-Review the exchange to identify service behavior or banners.
-
-6. Inspect Packet Details
-Expand layers in the packet view:
+Inspect Packet Details
+Expand layers:
 
 Ethernet II
 
@@ -89,20 +133,19 @@ IP
 
 TCP/UDP
 
-Application protocol (e.g., HTTP, SSH)
-
+Application protocols (e.g., HTTP, SSH)
 Look for:
 
 Headers
 
-Payload data
+Payload
 
 Hostnames
 
-Request types (e.g., GET, POST, QUERY)
+Request types (GET, POST, QUERY)
 
-7. Research Unknown Ports
-If Wireshark doesn't label a protocol:
+Research Unknown Ports
+If protocol is unidentified:
 
 Google: what service runs on port <port_number>
 
@@ -111,5 +154,5 @@ Use:
 IANA Port Registry
 
 SpeedGuide Port Database
-      
-   Use searchsploit or exploit-db to check for known vulnerabilities.
+
+Use searchsploit to identify known vulnerabilities related to the services found.
